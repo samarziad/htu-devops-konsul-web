@@ -16,15 +16,13 @@ COPY package*.json ./
 #RUN npm install npm -g
 RUN npm install
 
-RUN  npm install --global  @gridsome/cli 
-RUN npm install @vue/cli@3.7.0
+#RUN  npm install --global  @gridsome/cli 
+#RUN npm install @vue/cli@3.7.0
 
 
 #COPY all files t0 app
-COPY . /app
+COPY ./ .
 
-
-#RUN npm run build
 
 RUN npm run build
 
@@ -33,10 +31,11 @@ RUN npm run build
 #production 
 FROM nginx:1.16.0-alpine  as production-stage
 #change  r00t direct0ry 
+RUN mkdir /app
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 #RUN rm /etc/nginx/conf.d/default.conf
-#COPY  nginx.conf /etc/nginx/conf.d
+COPY  nginx.conf /etc/nginx/conf.d
 
 #p0rt number 
 EXPOSE 80
