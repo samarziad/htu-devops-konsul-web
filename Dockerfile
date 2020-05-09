@@ -29,6 +29,7 @@ RUN npm run build
 
 #production 
 FROM nginx:stable-alpine  as production-stage
+#change  r00t direct0ry 
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 EXPOSE 80
