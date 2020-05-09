@@ -17,7 +17,7 @@ COPY package*.json ./
 #install dependency from .json 
 #RUN npm install npm -g
 
-RUN apt-get install -y nginx 
+#RUN apt-get install -y nginx 
 RUN npm install
 
 #RUN  npm install --global  @gridsome/cli 
