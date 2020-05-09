@@ -13,7 +13,7 @@ WORKDIR  /app
 
 
 
-COPY package*.json .
+COPY package*.json ./
 #install dependency from .json 
 #RUN npm install npm -g
 
