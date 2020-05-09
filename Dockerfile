@@ -34,7 +34,7 @@ RUN npm run build
 
 
 #production 
-FROM nginx:1.16.0-alpine  as production-stage
+FROM nginx:latest  as production-stage
 
 #change  r00t direct0ry 
 RUN mkdir /app
