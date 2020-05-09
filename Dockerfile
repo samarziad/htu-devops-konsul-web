@@ -27,11 +27,13 @@ COPY . .
 #RUN  gridsome build
 RUN npm run build
 
+
 #production 
-FROM nginx:stable-alpine  as production-stage
+FROM node:stable-alpine  as production-stage
 #change  r00t direct0ry 
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
+#p0rt number 
 EXPOSE 80
 CMD {"nginx" , "-g" , "daemon off;"}
 
