@@ -1,6 +1,6 @@
 
 # build stage 
-FROM node:lts-alpine as build-stage
+FROM node:12.2.0-alpine as build-stage
 
 #RUN npm install -g http-server
 
@@ -11,18 +11,13 @@ WORKDIR  /app
 
 #ENV PATH /app/node_modules/.bin:$PATH
 
-#COPY package.json  /app/package.json
+COPY package*.json ./
 #install dependency from .json 
 #RUN npm install npm -g
-#RUN npm install
+RUN npm install
 
-ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json /app/package.json
-RUN npm install --silent
-RUN npm install @vue/cli@3.7.0 -g
-#RUN  npm install --global @gridsome/cli 
-
-#RUN npm install
+RUN  npm install --global  @gridsome/cli 
+RUN npm install @vue/cli@3.7.0
 
 
 #COPY all files t0 app
@@ -40,8 +35,8 @@ FROM nginx:1.16.0-alpine  as production-stage
 #change  r00t direct0ry 
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-RUN rm /etc/nginx/conf.d/default.conf
-COPY  nginx.conf /etc/nginx/conf.d
+#RUN rm /etc/nginx/conf.d/default.conf
+#COPY  nginx.conf /etc/nginx/conf.d
 
 #p0rt number 
 EXPOSE 80
