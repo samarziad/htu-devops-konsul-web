@@ -13,18 +13,11 @@ WORKDIR  /app
 
 
 
-COPY package*.json ./
+COPY package*.json .
 #install dependency from .json 
 #RUN npm install npm -g
-USER root
-RUN apt-get update
-RUN apt-get install -y nginx nodejs
-RUN rm -v /etc/nginx/nginx.conf
-ADD nginx.conf /etc/nginx/
 
-ADD app /usr/share/nginx/html/
-ADD app /var/www/html/
-
+RUN apt-get install -y nginx 
 RUN npm install
 
 #RUN  npm install --global  @gridsome/cli 
@@ -32,9 +25,8 @@ RUN npm install
 
 
 #COPY all files t0 app
-COPY ./ .
+COPY . .
 
-RUN run apt update
 
  
 RUN npm run build
@@ -43,9 +35,10 @@ RUN npm run build
 
 #production 
 FROM nginx:1.16.0-alpine  as production-stage
+
 #change  r00t direct0ry 
 RUN mkdir /app
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY --from=build-stage /app/dist /usr/share/nginx/html/dist
 
 #RUN rm /etc/nginx/conf.d/default.conf
 #COPY  nginx.conf /etc/nginx/conf.d
