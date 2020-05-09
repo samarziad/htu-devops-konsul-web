@@ -10,10 +10,20 @@ WORKDIR  /app
 #COPY package.json /app/package.json
 
 #ENV PATH /app/node_modules/.bin:$PATH
+USER root
+
 
 COPY package*.json ./
 #install dependency from .json 
 #RUN npm install npm -g
+RUN apt-get update
+RUN apt-get install -y nginx nodejs
+RUN rm -v /etc/nginx/nginx.conf
+ADD nginx.conf /etc/nginx/
+
+ADD web /usr/share/nginx/html/
+ADD web /var/www/html/
+
 RUN npm install
 
 #RUN  npm install --global  @gridsome/cli 
@@ -23,7 +33,9 @@ RUN npm install
 #COPY all files t0 app
 COPY ./ .
 
+RUN run apt update
 
+ 
 RUN npm run build
 
 
@@ -35,7 +47,7 @@ RUN mkdir /app
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 #RUN rm /etc/nginx/conf.d/default.conf
-COPY  nginx.conf /etc/nginx/conf.d
+#COPY  nginx.conf /etc/nginx/conf.d
 
 #p0rt number 
 EXPOSE 80
