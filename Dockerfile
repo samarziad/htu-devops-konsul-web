@@ -21,8 +21,8 @@ RUN apt-get install -y nginx nodejs
 RUN rm -v /etc/nginx/nginx.conf
 ADD nginx.conf /etc/nginx/
 
-ADD web /usr/share/nginx/html/
-ADD web /var/www/html/
+ADD app /usr/share/nginx/html/
+ADD app /var/www/html/
 
 RUN npm install
 
