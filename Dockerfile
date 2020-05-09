@@ -9,7 +9,10 @@ WORKDIR  /app
 
 #COPY package.json  /app/package.json
 
-COPY package*.json ./
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json /app/package.json
+
+#COPY package*.json ./
 #install dependency from .json 
 #RUN npm install npm -g
 RUN npm install
