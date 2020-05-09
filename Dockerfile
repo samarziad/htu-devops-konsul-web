@@ -11,12 +11,16 @@ WORKDIR  /app
 
 #ENV PATH /app/node_modules/.bin:$PATH
 
-COPY package.json  /app/package.json
+#COPY package.json  /app/package.json
 #install dependency from .json 
 #RUN npm install npm -g
-RUN npm install
+#RUN npm install
 
-RUN  npm install --global @gridsome/cli 
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json /app/package.json
+RUN npm install --silent
+RUN npm install @vue/cli@3.7.0 -g
+#RUN  npm install --global @gridsome/cli 
 
 #RUN npm install
 
