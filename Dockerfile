@@ -18,6 +18,7 @@ COPY package.json /app/package.json
 RUN npm install
 RUN npm install -g @vue/cli
 RUN npm i --save @nextcloud/vue
+RUN npm link @nextcloud/vue
 
 #COPY app pr0ject
 COPY . /app
