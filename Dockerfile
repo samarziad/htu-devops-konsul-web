@@ -9,7 +9,7 @@ WORKDIR /app
 
 
 # add (my app bin dependincy to env $PATH) `/app/node_modules/.bin` to env $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+#ENV PATH /app/node_modules/.bin:$PATH
 
 #COPY and install app dependencies 
 COPY package.json /app/package.json
