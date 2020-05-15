@@ -1,7 +1,7 @@
 
 #/usr/src
 
-FROM node:10.15.0 as stage-building
+FROM node:12.2.0-alpine as stage-building
 
 #create and set working directory 
 RUN mkdir /app
@@ -16,14 +16,15 @@ COPY package.json /app/package.json
 
 #install dependincy n0de.js vue 
 RUN npm install
-RUN npm install -g @vue/cli
-
+#RUN npm install -g @vue/cli
+RUN  npm install --global  @gridsome/cli
 
 #COPY app pr0ject
 COPY . /app
 
 #build app for production 
-RUN npm run build
+#RUN npm run build
+RUN  gridsome build
  
 #production stage depl0y app using nginx
 FROM nginx
