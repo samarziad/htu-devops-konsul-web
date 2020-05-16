@@ -7,7 +7,8 @@ FROM node:12.2.0-alpine as stage-building
 RUN mkdir /app
 WORKDIR /app
 
-
+# add (my app bin dependincy to env $PATH) `/app/node_modules/.bin` to env $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
 #COPY and install app dependencies 
 COPY package.json /app/package.json
@@ -16,14 +17,14 @@ COPY package.json /app/package.json
 RUN npm install
 
 
-RUN  npm install --global  @gridsome/cli
+RUN npm install -g @vue/cli
 
 #COPY app pr0ject
 COPY . /app
 
 #build app for production 
 
-RUN  gridsome build
+RUN npm run build
  
 #production stage depl0y app using nginx
 FROM nginx
